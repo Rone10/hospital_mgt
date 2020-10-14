@@ -3,7 +3,7 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 
-
+## Extending the user model to make email the required field instead of the default 'username'
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -33,7 +33,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
         return self.create_user(email, password, **extra_fields)
 
-
+##New  User model
 class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=255, unique=False)
     last_name = models.CharField(max_length=255, unique=False)
@@ -43,7 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = []
+
 
     objects = UserManager()
 
