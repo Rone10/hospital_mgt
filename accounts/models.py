@@ -2,7 +2,7 @@ from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
 from django.db import models
-
+from django.urls import reverse
 ## Extending the user model to make email the required field instead of the default 'username'
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -75,6 +75,8 @@ class Doctor(models.Model):
 
     doc_first_name.short_description = 'Name'
 
+    def get_absolute_url(self):
+        return reverse('account:detail', kwargs={ 'pk': self.pk})
 
 
 class Patient(models.Model):
@@ -83,7 +85,7 @@ class Patient(models.Model):
     phone = models.CharField(max_length=20,null=False)
     date_admitted = models.DateField(auto_now=True)
     symptoms = models.CharField(max_length=100,null=False)
-    assigned_to = models.OneToOneField(Doctor,on_delete=models.CASCADE)
+    assigned_to = models.ForeignKey(Doctor,on_delete=models.CASCADE)
 
 
     def __str__(self):

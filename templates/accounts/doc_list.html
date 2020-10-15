@@ -3,7 +3,9 @@
 {% block content %}
 <h1>Hospital Management Doctors List</h1>
     <h3>Docs here</h3>
-
+{% for doc in docs_list %}
+    {{ doc }}
+    {% endfor %}
 {% endblock content %}
 
 

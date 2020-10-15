@@ -2,7 +2,16 @@
 {% block title %}Doctor Details{% endblock title %}
 {% block content %}
 <h1>Hospital Management Doctor's Details</h1>
-    <h3>Doc here</h3>
+    {% if user.is_superuser %}
+        {{ doc.user.first_name }} - {{ doc.address }}
+        {% else %}
+        <h3>Sorry, you can't access these records</h3>
+{#        {% for patient in patients_list %}#}
+{#            <h6>{{ patient.user.first_name }}</h6>#}
+{#        {% endfor %}#}
+        {{ ID }}
+    {% endif %}
+
 
 {% endblock content %}
 

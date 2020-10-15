@@ -2,7 +2,18 @@
 {% block title %}Admin Dashboard{% endblock title %}
 {% block content %}
 <h1>Hospital Management Admin Dashboard</h1>
-    <h3>Admin here</h3>
+    {% if user.is_superuser %}
+        <h3>Doctors on staff</h3>
+        {% for doc in docs %}
+        <h4><a href="{{ doc.get_absolute_url }}"> {{ doc }}</a></h4>
+        {% endfor %}
+        <h3>Patients currently admitted</h3>
+        {% for patient in patients_list %}
+            <h4>{{ patient }}</h4>
+        {% endfor %}
+        {% else %}
+        <h5>Hello you are not admin</h5>
+    {% endif %}
 
 {% endblock content %}
 
