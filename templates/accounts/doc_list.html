@@ -2,9 +2,12 @@
 {% block title %}Doctors List{% endblock title %}
 {% block content %}
 <h1>Hospital Management Doctors List</h1>
-    <h3>Docs here</h3>
+    <h3>Doctor {{ user.first_name }}, here!</h3>
 {% for doc in docs_list %}
     {{ doc }}
+    {% endfor %}
+    {% for patient in docs_patients_list %}
+<h6>{{ patient }}</h6>
     {% endfor %}
 {% endblock content %}
 

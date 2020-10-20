@@ -6,7 +6,7 @@ from . models import User, Doctor, Patient
 @admin.register(User)
 class CustomUserAdmin(admin.ModelAdmin):
 
-    list_display = ('first_name', 'last_name', 'username', 'email')
+    list_display = ('email','first_name', 'last_name', 'username', )
     list_filter = ('username',)
     search_fields = ('first_name', 'last_name')
     ordering = ('first_name', 'email')

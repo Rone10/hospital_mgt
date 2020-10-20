@@ -3,6 +3,7 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 from django.urls import reverse
+
 ## Extending the user model to make email the required field instead of the default 'username'
 class UserManager(BaseUserManager):
     use_in_migrations = True

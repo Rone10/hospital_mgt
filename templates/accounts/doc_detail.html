@@ -2,15 +2,30 @@
 {% block title %}Doctor Details{% endblock title %}
 {% block content %}
 <h1>Hospital Management Doctor's Details</h1>
-    {% if user.is_superuser %}
-        {{ doc.user.first_name }} - {{ doc.address }}
+
+    {% if user.is_superuser or user.is_staff%}
+        {% if doc.user == user %}
+          <h5>{{ doc.user.first_name }}, here!</h5>
+            <h5>My address is: {{ doc.address }}</h5>
+            <h6>My patients are: </h6>
+            {% for patient in patients_list %}
+            <h6>{{ patient.user.first_name }}</h6>
+            {% endfor %}
+            {% else %}
+                    <h3>Sorry, you can't access these records, {{ user }}</h3>
+        {% endif %}
         {% else %}
-        <h3>Sorry, you can't access these records</h3>
-{#        {% for patient in patients_list %}#}
-{#            <h6>{{ patient.user.first_name }}</h6>#}
-{#        {% endfor %}#}
-        {{ ID }}
+
+
+
     {% endif %}
+    You should be logged in
+
+
+
+
+      <p>Current user ID is: {{ ID }}</p>
+
 
 
 {% endblock content %}

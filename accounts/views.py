@@ -1,13 +1,9 @@
-from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView,DetailView,ListView,DeleteView
-# Create your views here.
-
-def index(request):
-    return render(request, 'accounts/doctor_dashboard.html')
-
+from . forms import UserCreateForm
+from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
+from .models import Doctor, Patient, User
 
-from .models import Doctor, Patient
 
 class DocsPageView(TemplateView):
 
@@ -15,9 +11,9 @@ class DocsPageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['docs_list'] = Doctor.objects.all()
-        docs = Doctor.objects.get(pk=2)
-        context['docs_patients_list'] = docs.patient_set.all()
+        # context['docs_list'] = Doctor.objects.all()
+        doc = Doctor.objects.get(user=self.request.user)
+        context['docs_patients_list'] = doc.patient_set.all()
         context['patients'] = Patient.objects.all()
         return context
 
@@ -37,9 +33,18 @@ class DoctorDetailView(DetailView):
     context_object_name = 'doc'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # doc_id = Doctor.objects.get(pk=self.request.user.id)
-        # context['patients_list'] = doc_id.patient_set.all()
-        doc_id =self.request.user.id
-        context['ID']= doc_id
-        return context
+        if self.request.user.is_authenticated:
+            context = super().get_context_data(**kwargs)
+            doc_id = Doctor.objects.get(user=self.request.user)
+            context['patients_list'] = doc_id.patient_set.all()
+            doc_id =self.request.user.first_name
+            context['ID']= doc_id
+            return context
+        return
+
+
+class UserSignupView(CreateView):
+    form_class = UserCreateForm
+    template_name = 'registration/signup.html'
+    context_object_name = 'form'
+    success_url = reverse_lazy('login')
