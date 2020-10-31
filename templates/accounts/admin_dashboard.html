@@ -14,6 +14,11 @@
         {% else %}
         <h5>Hello you are not admin</h5>
     {% endif %}
+    search result for "{{ query }}":
+    {% for doc in res %}
+
+       <p> {{ doc.user.first_name }}</p>
+    {% endfor %}
 
 {% endblock content %}
 

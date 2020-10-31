@@ -2,13 +2,21 @@
 {% block title %}Doctors List{% endblock title %}
 {% block content %}
 <h1>Hospital Management Doctors List</h1>
-    <h3>Doctor {{ user.first_name }}, here!</h3>
+    {% if user.is_aunthenticated %}
+         <h3>Doctor {{ user.first_name }}, here!</h3>
 {% for doc in docs_list %}
     {{ doc }}
     {% endfor %}
     {% for patient in docs_patients_list %}
 <h6>{{ patient }}</h6>
     {% endfor %}
+        {% else %}
+        <h4>Hey doc, you're not logged in</h4>
+    {% endif %}
+<form method="GET" action="{% url 'accounts:home' %}" id="searchform">
+    <input class="searchfield" id="searchbox" name="q" type="text" value="{{ request.GET.q }}" placeholder="Search..."/>
+    <input type="submit" value="Submit">
+</form>
 {% endblock content %}
 
 
