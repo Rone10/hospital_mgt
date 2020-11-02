@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Search Form{% endblock title %}
+{% block content %}
+<h1>Search Form for Cities in British Columbia</h1>
+<form method="GET" action="{% url 'search:results' %}" id="citysearchform">
+    <input class="searchfield" id="name" name="name" type="text" value="{{ request.GET.q }}" placeholder="Name"/><br/>
+    <input class="searchfield" id="region" name="region" type="text" value="{{ request.GET.q }}" placeholder="Region"/><br/>
+
+    <input type="submit" value="Submit">
+</form>
+{% endblock content %}
+
+
