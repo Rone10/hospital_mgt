@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}Doctors List{% endblock title %}
 {% block content %}
-<h1>Hospital Management Doctors List</h1>
-    <h3>Doctor {{ user.first_name }}, here!</h3>
-{% for doc in docs_list %}
-    {{ doc }}
-    {% endfor %}
-    {% for patient in docs_patients_list %}
-<h6>{{ patient }}</h6>
-    {% endfor %}
+      <div class="flex flex-col w-4/5">
+      <h1 class="font-sans text-3xl text-black font-bold text-teal-500 text-center">Hospital Doctors</h1>
+
+    {% if user.is_authenticated %}
+        <div><h3 class="font-sans text-2xl text-black pb-10 ml-24 ">Doctor {{ user.first_name }}, here!</h3></div>
+     <div class="w-full flex flex-wrap  ">
+        {% for doc in docs %}
+             <div class="flex w-1/2  flex-grow">
+        {% include 'partials/doclistcard.html' %}
+             </div>
+        {% endfor %}
+        </div>
+    {% else %}
+         <p>Sorry</p>
+    {% endif %}
+      </div>
 {% endblock content %}
 
 

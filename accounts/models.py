@@ -52,11 +52,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-departments=[('ANES', 'Anesthetics'),
-        ('CRDLGY','Cardiologist'),
-        ('DMRTLGY','Dermatologists'),
-        ('RAD','Radiology'),
-        ('GYN', 'Gynecology')]
+departments=[('Anesthetics','ANES', ),
+        ('Cardiologist','CRDLGY',),
+        ('Dermatologists', 'DMRTLGY',),
+        ('Radiology', 'RAD',),
+        ('Gynecology','GYN', )]
 
 
 class Doctor(models.Model):
@@ -64,7 +64,7 @@ class Doctor(models.Model):
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20, null=True)
     department = models.CharField(max_length=50, choices=departments, default='GYN')
-
+    image = models.ImageField(upload_to='images/', default='images/male_doc.png')
 
 
     def __str__(self):

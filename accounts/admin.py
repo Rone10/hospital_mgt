@@ -15,7 +15,7 @@ class CustomUserAdmin(admin.ModelAdmin):
 @admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
 
-    list_display = ('doc_first_name','address', 'department')
+    list_display = ('doc_first_name','address', 'department', 'image')
     list_filter = ('department',)
     search_fields = ('department',)
 

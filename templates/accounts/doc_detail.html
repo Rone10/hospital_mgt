@@ -1,33 +1,33 @@
 {% extends 'base.html' %}
 {% block title %}Doctor Details{% endblock title %}
 {% block content %}
-<h1>Hospital Management Doctor's Details</h1>
+    <div class="flex flex-col">
+        <h1 class="font-sans text-3xl text-black font-bold text-teal-500 text-center">Hospital Management Doctor's Details</h1>
+        <div>
+            {% if doc.user == user or user.is_superuser %}
+                <div class="flex ">
+                <img class="block mx-auto sm:mx-0 sm:flex-shrink-0 h-16 sm:h-24 rounded-full" src="{{ doc.image.url }}" alt="image">
+                <h5><span class="font-sans text-black text-black font-bold  text-center">{{ doc.user.first_name }}</span>, here!</h5>
+                <h5>My address is: {{ doc.address }}</h5>
+                <h6>My patients are: </h6>
+                {% for patient in patients_list %}
+                    <ul>
+                        <li>
+                            {{ patient.user.first_name }}
+                        </li>
+                    </ul>
+                {% endfor %}
+                </div>
 
-    {% if user.is_superuser or user.is_staff%}
-        {% if doc.user == user %}
-          <h5>{{ doc.user.first_name }}, here!</h5>
-            <h5>My address is: {{ doc.address }}</h5>
-            <h6>My patients are: </h6>
-            {% for patient in patients_list %}
-            <h6>{{ patient.user.first_name }}</h6>
-            {% endfor %}
             {% else %}
-                    <h3>Sorry, you can't access these records, {{ user }}</h3>
-        {% endif %}
-        {% else %}
-
-
-
-    {% endif %}
-    You should be logged in
-
-
-
-
-      <p>Current user ID is: {{ ID }}</p>
-
-
-
+                <div>
+                    <h3>Sorry, you can't access these records</h3>
+                    <p>Login Here</p>
+                    {% include 'partials/login_button.html' %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock content %}
 
 

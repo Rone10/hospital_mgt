@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, UpdateView,DetailView,ListView,DeleteView
 from . forms import UserCreateForm
 from django.urls import reverse_lazy
@@ -5,17 +6,11 @@ from django.views.generic.base import TemplateView
 from .models import Doctor, Patient, User
 
 
-class DocsPageView(TemplateView):
-
+class DocsPageView(ListView):
+    model = Doctor
     template_name = "accounts/doc_list.html"
+    context_object_name = 'docs'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # context['docs_list'] = Doctor.objects.all()
-        doc = Doctor.objects.get(user=self.request.user)
-        context['docs_patients_list'] = doc.patient_set.all()
-        context['patients'] = Patient.objects.all()
-        return context
 
 class AdminHomeView(TemplateView):
     template_name = "accounts/admin_dashboard.html"
@@ -44,7 +39,18 @@ class DoctorDetailView(DetailView):
 
 
 class UserSignupView(CreateView):
+    # model = User
     form_class = UserCreateForm
     template_name = 'registration/signup.html'
     context_object_name = 'form'
-    success_url = reverse_lazy('login')
+    success_url = 'home/'
+
+    def form_valid(self, form):
+        # save the new user first
+        super(form).form_valid()
+        form.save()
+        return reverse_lazy()
+
+
+class Homepage(TemplateView):
+    template_name = 'accounts/homepage.html'

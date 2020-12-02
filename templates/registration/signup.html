@@ -1,14 +1,63 @@
 {% extends 'base.html' %}
 {% block title %}Signup{% endblock title %}
 {% block content %}
-<h1>Signup Page</h1>
-    <p>Welcome to the User Login Page</p>
-    <form method="post">
+{% if user.is_authenticated  %}
+
+     <h2>You're already logged in!</h2>
+
+
+    {% else %}
+    <div class="w-full max-w-xs ">
+  <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="post" >
+
     {% csrf_token %}
-    {{ form.as_p }}
-     <input type="submit" placeholder="Submit">
-    </form>
+          <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+        Email
+      </label>
+        {{ form.email }}
+    </div>
+<div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="first_name">
+        First Name
+      </label>
+        {{ form.first_name }}
+    </div>
+      <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="last_name">
+        Last Name
+      </label>
+        {{ form.last_name }}
+    </div>
 
+       <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+        Username
+      </label>
+        {{ form.username }}
+    </div>
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        Password
+      </label>
+      {{ form.password }}
+    </div>
+      <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password2">
+        Repeat Password
+      </label>
+      {{ form.password2 }}
+      <p class="text-red-500 text-xs italic">Please choose a password.</p>
+    </div>
+    <div class="flex items-center justify-between">
+      <input  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" placeholder="Submit">
+      <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+        Forgot Password?
+      </a>
+    </div>
+  </form>
+  <p class="text-center text-gray-500 text-xs">
+    &copy;2020 Acme Corp. All rights reserved.
+  </p>
+{% endif %}
 {% endblock content %}
-
-
