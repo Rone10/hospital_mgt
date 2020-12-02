@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from accounts.forms import CustomLoginForm
+# from accounts.forms import CustomLoginForm
 
 from django.conf import settings
 from django.conf.urls.static import static
