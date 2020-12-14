@@ -1,40 +1,45 @@
 {% extends 'base.html' %}
-
+{% block title %}Login{% endblock title %}
 
 
 {% block content %}
-    <form method="post">
-    {% csrf_token %}
-    <p>{{ form.as_p }}</p>
-    </form>
-{##}
-{#<div class="w-full max-w-xs ">#}
-{#  <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="post">#}
-{##}
-{#    {% csrf_token %}#}
-{##}
-{#    <div class="mb-4">#}
-{#      <label class="block text-gray-700 text-sm font-bold mb-2" for="email">#}
-{#        Email#}
-{#      </label>#}
-{#        {{ form.username }}#}
-{#    </div>#}
-{#    <div class="mb-6">#}
-{#      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">#}
-{#        Password#}
-{#      </label>#}
-{#      {{ form.password }}#}
-{#      <p class="text-red-500 text-xs italic">Please choose a password.</p>#}
-{#    </div>#}
-{#    <div class="flex items-center justify-between">#}
-{#      <input  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" placeholder="Submit">#}
-{#      <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">#}
-{#        Forgot Password?#}
-{#      </a>#}
-{#    </div>#}
-{#  </form>#}
-{#  <p class="text-center text-gray-500 text-xs">#}
-{#    &copy;2020 Acme Corp. All rights reserved.#}
-{#  </p>#}
-{#</div>#}
-{% endblock %}
+	<div class="p-10 mx-auto">
+		<h2 class="text-white text-center text-4xl font-bold">Login Form</h2>
+	</div>
+<div class="flex w-2/5 p-10 flex-col bg-blue-700 mt-24 mx-auto">
+
+     <form class="w-3/5  mx-auto max-w-sm" method="post">
+			{% csrf_token %}
+				<div class="md:flex md:items-center mb-6">
+					<div class="md:w-1/3">
+						<label class="block text-white font-bold md:text-right mb-1 md:mb-0 pr-4" for="{{ form.username.id_for_label }}">
+							Email
+			  			</label>
+					</div>
+					<div class="md:w-2/3">
+						{{ form.username }}
+					</div>
+		  		</div>
+		  		<div class="md:flex md:items-center mb-6">
+					<div class="md:w-1/3">
+			  			<label class="block text-white font-bold md:text-right mb-1 md:mb-0 pr-4" for="password">
+							Password
+			  			</label>
+					</div>
+					<div class="md:w-2/3">
+						{{ form.password }}
+						{{ form.password.errors }}
+					</div>
+		  		</div>
+				<div class="md:flex md:items-center">
+					<div class="md:w-1/3"></div>
+					<div class="md:w-2/3">
+			  			<button class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="Submit">
+							Login
+			  			</button>
+					</div>
+		  		</div>
+
+	 </form>
+</div>
+{% endblock content %}

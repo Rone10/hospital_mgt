@@ -1,28 +1,36 @@
 {% extends 'base.html' %}
 {% block title %}Admin Dashboard{% endblock title %}
 {% block content %}
-    <div class="flex flex-col w-4/5">
-    <h1 class="font-sans text-3xl text-black font-bold text-teal-500 text-center">Hospital Management Admin Dashboard</h1>
-        <h3 class="font-sans text-2xl text-black text-center pb-10 ml-24 ">Doctors on staff</h3>
-     <div class="w-full flex flex-wrap  ">
-         {% if user.is_superuser %}
+    <div class="flex flex-col w-full">
+    <h1 class="font-sans text-5xl text-black font-bold text-white text-center mt-10 mb-10">Dev Hospital Admin Dashboard</h1>
+    {% if user.is_superuser %}
+        <h3 class="font-sans text-3xl text-black font-bold text-white text-center mt-10 mb-10 ">Doctors on staff</h3>
+        <div class="w-4/5 mx-auto grid grid-cols-2 gap-4 ">
+
         {% for doc in docs %}
-            <div class="flex w-1/2  flex-grow">
+            <div class="">
        {% include 'partials/doc_card.html'   %}
             </div>
+
         {% endfor %}
-             <div class="w-full">
-        <h3 class="font-sans text-2xl text-black text-center ">Patients</h3>
+        </div>
+              <div>
+        <h3 class="font-sans text-4xl text-black font-bold text-white text-center mt-10 ">Patients</h3>
+        </div>
+          <div class="w-3/5 grid grid-cols-2 gap-1 mx-auto mt-10 ">
+
               {% for patient in patients_list %}
             {% include 'partials/patient_card.html' %}
         {% endfor %}
              </div>
+        {% elif user.is_authenticated and user == patient.user %}
+        <div>
+        {{ patient.user.first_name }}
+        </div>
         {% else %}
         <h5>Hello you are not admin</h5>
     {% endif %}
      </div>
-{#    <div class="mx-auto">#}
-{#        {% include 'partials/login_button.html' %}#}
-{#    </div>#}
+
    </div>
 {% endblock content %}

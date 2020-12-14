@@ -125,7 +125,7 @@ STATICFILES_DIRS = [(BASE_DIR/'static'),]
 AUTH_USER_MODEL = 'accounts.User'
 
 LOGIN_REDIRECT_URL = 'accounts:home'
-# LOGOUT_REDIRECT_URL = 'accounts:docs'
+LOGOUT_REDIRECT_URL = 'accounts:home'
 
 ############# IMAGES #############
 import os

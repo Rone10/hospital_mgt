@@ -53,8 +53,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 departments=[('Anesthetics','ANES', ),
-        ('Cardiologist','CRDLGY',),
-        ('Dermatologists', 'DMRTLGY',),
+        ('Cardiology','CRDLGY',),
+        ('Dermatology', 'DMRTLGY',),
         ('Radiology', 'RAD',),
         ('Gynecology','GYN', )]
 
@@ -86,7 +86,7 @@ class Patient(models.Model):
     phone = models.CharField(max_length=20,null=False)
     date_admitted = models.DateField(auto_now=True)
     symptoms = models.CharField(max_length=100,null=False)
-    assigned_to = models.ForeignKey(Doctor,on_delete=models.CASCADE)
+    assigned_to = models.ForeignKey(Doctor,on_delete=models.CASCADE,null=True, blank=True)
 
 
     def __str__(self):
@@ -97,3 +97,8 @@ class Patient(models.Model):
         return "%s " % self.user.first_name
 
     patient_first_name.short_description = 'Name'
+
+
+class Appointment(models.Model):
+    patient = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_booked = models.DateField(auto_now_add=True)

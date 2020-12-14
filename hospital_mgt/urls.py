@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-# from accounts.forms import CustomLoginForm
+from accounts.forms import CustomLoginForm
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/login/', auth_views.auth_login, name='login', kwargs={"authentication_form":CustomLoginForm}),# this allows us to use custom login form instead of the built in default form django comes with
+    # path('accounts/login/', auth_views.auth_login, name='login', kwargs={"authentication_form":CustomLoginForm}),# this allows us to use custom login form instead of the built in default form django comes with
 ]
 
 if settings.DEBUG:
